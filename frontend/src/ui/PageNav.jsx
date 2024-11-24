@@ -6,7 +6,7 @@ function PageNav() {
     <div className="right-menu lg:flex lg:justify-between lg:items-center hidden lg:font-medium lg:gap-x-7">
       <nav className="lg:flex lg:gap-x-12">
         <div>
-          <NavLink className="hover:text-shade1" to="/home">
+          <NavLink className="hover:text-shade1" to="/">
             Home
           </NavLink>
         </div>

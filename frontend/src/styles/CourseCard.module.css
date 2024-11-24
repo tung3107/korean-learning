@@ -1,0 +1,19 @@
+.cardDescrip {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 20px 14px 20px;
+}
+.cardDescrip h3 {
+  font-weight: 500;
+  font-size: 18px;
+}
+.cardDescrip div {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.cardDescrip div span {
+  color: #666;
+}

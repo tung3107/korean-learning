@@ -45,6 +45,13 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   courses: [{ type: mongoose.Schema.ObjectId, ref: 'Course' }],
 });
+
+// userSchema.virtual('courses', {
+//   ref: 'Course',
+//   foreignField: 'userID',
+//   localField: '_id',
+// });
+
 //// encrypt password before save
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {

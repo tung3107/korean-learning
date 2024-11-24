@@ -6,6 +6,7 @@ const courseRoute = require('./routes/courseRoute');
 const userRoute = require('./routes/userRoute');
 const lessonRoute = require('./routes/lessonRoute');
 const exerciseRoute = require('./routes/exerciseRoute');
+const registrationRoute = require('./routes/registrationRoute');
 
 const globalErrorHandler = require('./controller/errorController');
 
@@ -27,6 +28,7 @@ app.use('/api/v1/course', courseRoute);
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/lessons', lessonRoute);
 app.use('/api/v1/exercises', exerciseRoute);
+app.use('/api/v1/register', registrationRoute);
 
 // undefined routes
 app.all('*', (req, res, next) => {});

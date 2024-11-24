@@ -2,9 +2,10 @@ const Course = require('../model/courseModel');
 const AppError = require('../utils/appError');
 
 const catchHandle = require('../utils/catchHandle');
+const { deleteOne, updateOne, createOne } = require('./handleFactory');
 
 exports.getAllCourse = catchHandle(async (req, res, next) => {
-  const courses = await Course.find();
+  const courses = await Course.find().populate('userCount').sort('level');
 
   res.status(200).json({
     status: 'success',
@@ -16,7 +17,10 @@ exports.getAllCourse = catchHandle(async (req, res, next) => {
 });
 
 exports.getCourseById = catchHandle(async (req, res, next) => {
-  const course = await Course.findById(req.params.id);
+  const course = await Course.findById(req.params.id).populate({
+    path: 'lessons',
+    select: '-__v -id -description -content',
+  });
 
   if (!course) {
     return next(new AppError('Unknown course id', 400));
@@ -29,42 +33,6 @@ exports.getCourseById = catchHandle(async (req, res, next) => {
     },
   });
 });
-exports.createCourse = catchHandle(async (req, res, next) => {
-  const course = await Course.create(req.body);
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      newCourse: course,
-    },
-  });
-});
-exports.updateCourse = catchHandle(async (req, res, next) => {
-  const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  if (!course) {
-    return next(new AppError('Invalid course ID', 400));
-  }
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      updatedCourse: course,
-    },
-  });
-});
-
-exports.deleteCourse = catchHandle(async (req, res, next) => {
-  const course = await Course.findByIdAndDelete(req.params.id);
-
-  if (!course) {
-    return next(new AppError('Invalid course ID', 400));
-  }
-
-  res.status(200).json({
-    status: 'success',
-  });
-});
+exports.createCourse = createOne(Course);
+exports.updateCourse = updateOne(Course);
+exports.deleteCourse = deleteOne(Course);

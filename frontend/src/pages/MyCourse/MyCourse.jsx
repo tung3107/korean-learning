@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import HomeCourse from "../../ui/HomeCourse";
-import HomeGame from "../../ui/HomeGame";
-
 import AppHeader from "../../ui/AppHeader";
-import { Outlet } from "react-router";
-
-const DashboardLayout = styled.div`
+import FinishedCourse from "../../ui/FinishedCourse";
+const MyCourseLayout = styled.div`
   width: 100%;
   display: flex;
   height: 100%;
@@ -17,14 +13,13 @@ const DashboardLayout = styled.div`
     margin-left: 0;
   }
 `;
-
-function Dashboard() {
+function MyCourse() {
   return (
-    <DashboardLayout>
+    <MyCourseLayout>
       <AppHeader />
-      <HomeCourse />
-    </DashboardLayout>
+      <FinishedCourse />
+    </MyCourseLayout>
   );
 }
 
-export default Dashboard;
+export default MyCourse;

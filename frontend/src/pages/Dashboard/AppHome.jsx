@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import SideBar from "../../components/SideBar";
 import styled from "styled-components";
+import AppHeader from "../../ui/AppHeader";
 
 const SideBarLayOut = styled.div`
   display: flex;
