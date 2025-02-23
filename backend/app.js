@@ -19,10 +19,7 @@ const globalErrorHandler = require('./controller/errorController');
 const app = express();
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:5173'
-        : process.env.FRONT_END_BASE_URL, // URL frontend
+    origin: 'https://e-learning-wheat-chi.vercel.app', // URL frontend
     credentials: true, // Cho phép gửi cookie và thông tin xác thực
   }),
 );
