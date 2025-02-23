@@ -1,6 +1,6 @@
 const multer = require('multer');
 
-const multerStorage = multer.diskStorage({
+const multerStorage = multer.memoryStorage({
   destination: (req, file, callback) => {
     callback(null, 'public/img/course');
   },
