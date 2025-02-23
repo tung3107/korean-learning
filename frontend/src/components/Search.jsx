@@ -13,7 +13,7 @@ const SearchLayout = styled.div`
   border: 2px solid rgb(232, 232, 232);
   padding: 0 16px 0 8px;
   background-color: rgb(225, 225, 225);
-  width: 420px;
+  width: 400px;
   max-width: 100%;
   height: 40px;
   gap: 5px;

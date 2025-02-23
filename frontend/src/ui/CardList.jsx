@@ -11,7 +11,12 @@ const ListLayout = styled.ul`
   flex-wrap: wrap;
   gap: 15px;
 
-  @media (max-width: 1028px) {
+  @media (max-width: 450px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 729px) and (max-width: 1028px) {
     justify-content: center;
   }
 `;

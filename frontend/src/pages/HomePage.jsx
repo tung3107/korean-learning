@@ -19,7 +19,6 @@ const HomePage = () => {
       <Header>
         <Logo width={50} />
         <PageNav />
-        <PageNavMob />
       </Header>
 
       {/* Hero Section */}

@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { HiMiniClock } from "react-icons/hi2";
 
 const CardLayout = styled.div`
-  width: 25%;
+  width: 23%;
   border-radius: 12px;
   background: #ffffff;
   border: 1px solid rgba(30, 30, 30, 0.07);
@@ -25,21 +25,22 @@ const CardLayout = styled.div`
   &:hover {
     transform: translateY(-10px);
   }
-  @media (max-width: 728px) {
-    width: 45%;
+  @media (max-width: 450px) {
+    width: 70%;
+  }
+  @media (min-width: 451px) and (max-width: 728px) {
+    width: 40%;
 
     h3 {
       font-size: 1rem;
-    }
-    img {
-      width: 100%;
-      height: 40%;
+      line-height: 1.2rem;
     }
   }
   @media (min-width: 729px) and (max-width: 1028px) {
     width: 30%;
     h3 {
-      font-size: 0.5rem;
+      font-size: 1.1rem;
+      line-height: 1.76rem;
     }
     img {
       width: 100%;
@@ -49,7 +50,8 @@ const CardLayout = styled.div`
   @media (min-width: 1280px) {
     width: 20%;
     h3 {
-      font-size: 0.7rem;
+      font-size: 1.1rem;
+      line-height: 1.75rem;
     }
   }
 `;
@@ -62,8 +64,9 @@ const CardContent = styled.div`
   justify-content: space-between;
   flex-direction: column;
 
-  @media (max-width: 1028px) {
-    height: 60%;
+  @media (max-width: 728px) {
+    justify-content: unset;
+    gap: 10px;
   }
 
   svg {
@@ -71,11 +74,9 @@ const CardContent = styled.div`
   }
 
   h3 {
-    font-size: 1.1rem;
     font-weight: 600;
     color: rgb(9, 9, 11);
     word-wrap: break-word;
-    line-height: 1.75rem;
   }
 
   p {

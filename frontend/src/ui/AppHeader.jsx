@@ -31,6 +31,9 @@ const AppHeaderLayout = styled.div`
     header {
       width: 100%;
     }
+    .username {
+      display: none;
+    }
   }
   @media (min-width: 1280px) {
     header {
@@ -108,7 +111,7 @@ function AppHeader() {
             )}
           </SearchProvider>
         </div>
-        <span className=" text-md font-medium text-gray-600">
+        <span className="username text-md font-medium text-gray-600">
           Welcome, {user.name}
         </span>
       </Header>

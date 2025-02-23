@@ -15,7 +15,7 @@ function PageNavMob() {
           style={{ lineHeight: "50px" }}
         >
           <div className="pl-5 hover:bg-tint5">
-            <NavLink className="hover:text-shade1" to="/home">
+            <NavLink className="hover:text-shade1" to="/">
               Home
             </NavLink>
           </div>
