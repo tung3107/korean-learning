@@ -18,11 +18,7 @@ export function useSignUp() {
       queryClient.setQueryData(["user"], user);
       toast.success("Sign up successfully");
 
-      Cookies.set("jwt", token, {
-        expires: 9,
-        secure: true,
-        sameSite: "Strict",
-      });
+      document.cookie = `jwt=${token}; path=/; max-age=3600; secure`;
 
       if (user.role === "user") {
         navigate("/app/home", { replace: true });

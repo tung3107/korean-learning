@@ -20,11 +20,9 @@ export default function useLogin() {
       toast.success("Login successfully", {
         duration: 1000,
       });
-      Cookies.set("jwt", token, {
-        expires: 9,
-        secure: true,
-        sameSite: "Strict",
-      });
+
+      document.cookie = `jwt=${token}; path=/; max-age=3600; secure`;
+
       if (user.role === "user") {
         navigate("/app/home", { replace: true });
       } else {

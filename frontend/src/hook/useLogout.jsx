@@ -16,7 +16,7 @@ export function useLogout() {
     onSuccess: () => {
       queryClient.removeQueries();
       toast.success("Logging out");
-      Cookies.remove("jwt");
+      document.cookie = "";
       navigate("/", { replace: true });
     },
   });
