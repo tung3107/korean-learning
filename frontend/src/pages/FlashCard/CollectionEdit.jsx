@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import AppHeader from "../../ui/AppHeader";
 import { HomeCourseLayout } from "../../ui/HomeCourse";
-import { Field } from "../../components/ui/field";
 import {
   HiArrowLeftOnRectangle,
   HiDocument,
@@ -13,7 +12,6 @@ import {
 import { DashboardLayout } from "../Dashboard/Dashboard";
 import axiosClient from "../../services/axiosClient";
 import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
 
 const CollectionEditLayout = DashboardLayout;
 
@@ -125,26 +123,29 @@ function CollectionEdit() {
 
         {/* Form */}
         <div className="mt-6 mb-6">
-          <Field label="Title for collection">
-            <input
-              type="text"
-              name="name"
-              value={flashCardDetail.name}
-              onChange={(e) => handleOnChangeCard(e)}
-              placeholder="Enter your title"
-              className="border border-gray-300 rounded-md px-4 py-2 focus:border-green-500 w-full"
-            />
-          </Field>
-          <Field label="Description" className="mt-3">
-            <input
-              type="text"
-              name="description"
-              value={flashCardDetail.description}
-              onChange={(e) => handleOnChangeCard(e)}
-              placeholder="Enter your description"
-              className="border border-gray-300 rounded-md px-4 py-2 focus:border-green-500 w-full"
-            />
-          </Field>
+          <label className="block text-gray-700 font-medium mb-2">
+            Title for collection
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={flashCardDetail.name}
+            onChange={handleOnChangeCard}
+            placeholder="Enter your title"
+            className="border border-gray-300 rounded-md px-4 py-2 focus:border-green-500 w-full"
+          />
+
+          <label className="block text-gray-700 font-medium mt-4 mb-2">
+            Description
+          </label>
+          <input
+            type="text"
+            name="description"
+            value={flashCardDetail.description}
+            onChange={handleOnChangeCard}
+            placeholder="Enter your description"
+            className="border border-gray-300 rounded-md px-4 py-2 focus:border-green-500 w-full"
+          />
         </div>
 
         {/* Quick Add Button */}
@@ -201,7 +202,8 @@ function Card({ index, el, handleOnChange, handleRemove }) {
       <hr className="my-2 border-gray-300" />
 
       <div className="grid grid-cols-2 gap-4">
-        <Field label="Front">
+        <div>
+          <label className="block text-gray-700 font-medium mb-2">Front</label>
           <input
             type="text"
             name="front"
@@ -212,8 +214,10 @@ function Card({ index, el, handleOnChange, handleRemove }) {
           {newErrors.front && (
             <p className="text-red-500 text-sm mt-1">{newErrors.front}</p>
           )}
-        </Field>
-        <Field label="Back">
+        </div>
+
+        <div>
+          <label className="block text-gray-700 font-medium mb-2">Back</label>
           <input
             type="text"
             name="back"
@@ -224,7 +228,7 @@ function Card({ index, el, handleOnChange, handleRemove }) {
           {newErrors.back && (
             <p className="text-red-500 text-sm mt-1">{newErrors.back}</p>
           )}
-        </Field>
+        </div>
       </div>
     </div>
   );

@@ -82,7 +82,7 @@ function LoginForm() {
     <Form name="loginForm" onSubmit={(e) => handleLogin(e)}>
       {/* Email Input */}
       <InputGroup>
-        <Img src="../../src/assets/mail.svg" alt="Email Icon" />
+        <Img src="/mail.svg" alt="Email Icon" />
         <Input
           type="email"
           id="email"
@@ -95,7 +95,7 @@ function LoginForm() {
 
       {/* Password Input */}
       <InputGroup>
-        <Img src="../../src/assets/Lock.svg" alt="Password Icon" />
+        <Img src="/Lock.svg" alt="Password Icon" />
         <Input
           type="password"
           id="password"

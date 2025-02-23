@@ -85,7 +85,7 @@ function SignUpForm() {
     <Form name="signUpForm" onSubmit={(e) => handleLogin(e)}>
       {/* Email Input */}
       <InputGroup>
-        <Img src="../../src/assets/mail.svg" alt="Name Icon" />
+        <Img src="/mail.svg" alt="Name Icon" />
         <Input
           type="text"
           id="name"
@@ -97,7 +97,7 @@ function SignUpForm() {
         />
       </InputGroup>
       <InputGroup>
-        <Img src="../../src/assets/mail.svg" alt="Email Icon" />
+        <Img src="/mail.svg" alt="Email Icon" />
         <Input
           type="email"
           id="email"
@@ -111,7 +111,7 @@ function SignUpForm() {
 
       {/* Password Input */}
       <InputGroup>
-        <Img src="../../src/assets/Lock.svg" alt="Password Icon" />
+        <Img src="/Lock.svg" alt="Password Icon" />
         <Input
           type="password"
           id="password"
@@ -123,7 +123,7 @@ function SignUpForm() {
         />
       </InputGroup>
       <InputGroup>
-        <Img src="../../src/assets/Lock.svg" alt="Password Confirm" />
+        <Img src="/Lock.svg" alt="Password Confirm" />
         <Input
           type="password"
           id="passwordConf"

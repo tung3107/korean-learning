@@ -1,31 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  HiBell,
-  HiOutlineBell,
-  HiOutlineUser,
-  HiPlus,
-  HiPlusSmall,
-  HiUser,
-} from "react-icons/hi2";
+import { HiBell, HiUser } from "react-icons/hi2";
 
 import Button from "../components/Button";
 
-import Img from "../components/Img";
 import Search from "../components/Search";
 import Header from "./Header";
-import Input from "./Input";
 import { useLogout } from "../hook/useLogout";
-import { Navigate } from "react-router";
-import { NavLink } from "react-router-dom";
 import SearchResult from "./SearchResult";
-import useSearch from "../hook/useSearch";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { SearchProvider } from "../hook/SearchContext";
 import Menu from "./Menu";
 import styled from "styled-components";
-import { IconButton } from "@chakra-ui/react";
-import { LuMoon, LuSun } from "react-icons/lu";
-import { useColorMode } from "../components/ui/color-mode";
 
 const AppHeaderLayout = styled.div`
   z-index: 20;
@@ -59,7 +44,6 @@ function AppHeader() {
   const [searchOpened, setSearchOpened] = useState(false);
   const menuRef = useRef(null);
   const { logout, isLoading } = useLogout();
-  const { toggleColorMode, colorMode } = useColorMode();
   const queryClient = useQueryClient();
 
   const user = queryClient.getQueryData(["user"]);
