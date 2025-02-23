@@ -10,9 +10,18 @@ const axiosClient = axios.create({
   withCredentials: true,
 });
 
+const getCookie = (name) => {
+  const cookies = document.cookie.split("; ");
+  for (let cookie of cookies) {
+    const [key, value] = cookie.split("=");
+    if (key === name) return value;
+  }
+  return null;
+};
+
 axiosClient.interceptors.request.use(
   (config) => {
-    const token = document.cookie;
+    const token = getCookie("jwt");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
