@@ -24,10 +24,6 @@ const lessonSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    isFinished: {
-      type: Boolean,
-      default: false,
-    },
     course: {
       type: mongoose.Schema.ObjectId,
       ref: 'Course',

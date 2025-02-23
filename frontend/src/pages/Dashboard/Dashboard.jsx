@@ -8,13 +8,17 @@ import { Outlet } from "react-router";
 const DashboardLayout = styled.div`
   width: 100%;
   display: flex;
-  height: 100%;
+  min-height: 100vh;
   flex-direction: column;
   justify-content: center;
   margin-left: 10%;
   margin-top: 4rem;
-  @media (max-width: 768px) {
+  background-color: #eaeaea;
+  @media (max-width: 728px) {
     margin-left: 0;
+  }
+  @media (min-width: 1280px) {
+    margin-left: 7%;
   }
 `;
 
@@ -28,3 +32,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+export { DashboardLayout };

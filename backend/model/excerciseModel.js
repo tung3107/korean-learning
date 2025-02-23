@@ -15,10 +15,6 @@ const excerciseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  isFinished: {
-    type: Boolean,
-    default: false,
-  },
   lesson: {
     type: mongoose.Schema.ObjectId,
     ref: 'Lesson',

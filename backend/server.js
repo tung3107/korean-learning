@@ -1,9 +1,9 @@
-const dotenv = require("dotenv").config({ path: "./config.env" });
-const mongooes = require("mongoose");
+const dotenv = require('dotenv').config({ path: './config.env' });
+const mongooes = require('mongoose');
 
-const app = require("./app");
+const app = require('./app');
 
-process.on("uncaughtException", (err) => {
+process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
 });
 
@@ -15,15 +15,18 @@ const server = app.listen(port, () => {
 /// mongo database config
 mongooes
   .connect(
-    process.env.DATABASE.replace(/<db_password>/, process.env.DATABASE_PASSWORD)
+    process.env.DATABASE.replace(
+      /<db_password>/,
+      process.env.DATABASE_PASSWORD,
+    ),
   )
   .then((con) => {
-    console.log("database connected");
+    console.log('database connected');
   });
 
-process.on("unhandledRejection", (err) => {
-  console.log(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});
+// process.on("unhandledRejection", (err) => {
+//   console.log(err.name, err.message);
+//   server.close(() => {
+//     process.exit(1);
+//   });
+// });

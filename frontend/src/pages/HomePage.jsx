@@ -1,91 +1,115 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Cookie from "universal-cookie";
 import Header from "../ui/Header";
 import PageNav from "../ui/PageNav";
 import PageNavMob from "../ui/PageNavMob";
 import Logo from "../ui/Logo";
-import Button from "../components/Button";
 import Footer from "../ui/Footer";
-import { Navigate, useNavigate } from "react-router";
+import Button from "../components/Button";
 import styles from "../styles/HomePage.module.css";
+import { useAuth } from "../hook/useAuth";
+import { Navigate } from "react-router";
+
+const cookie = new Cookie();
 
 const HomePage = () => {
   return (
-    <main className="bg-silver m-auto">
+    <main className="bg-gradient-to-b from-white to-green-50 min-h-screen">
+      {/* Header */}
       <Header>
-        <Logo width={40} />
+        <Logo width={50} />
         <PageNav />
         <PageNavMob />
       </Header>
 
-      <HomeSection />
-      <SectionTwo />
+      {/* Hero Section */}
+      <HeroSection />
 
+      {/* Features Section */}
+      <FeaturesSection />
+
+      {/* Footer */}
       <Footer />
     </main>
   );
 };
 
-const HomeSection = () => (
-  <section className="home flex flex-col justify-around items-start lg:flex-row lg:gap-10 xl:px-0 py-10 xl:py-0 mx-auto max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-5xl items-center mb-12">
-    <WelcomeText />
-    <Illustration
-      src="Illustation.png"
-      alt="Illustration related to learning Korean"
-      customStyle={`${styles.welcomeImg}`}
-    />
-  </section>
-);
-
-// Welcome Text Component
-function WelcomeText() {
-  return (
-    <div className={`tracking-tight ${styles.welcomeTextanimation}`}>
-      <h2 className="text-4xl text-black font-bold">Learning Korean from</h2>
-      <h2 className="mt-3 text-3xl text-shade1 font-bold">complete scratch</h2>
-      <p className="mt-4 text-sm text-grey mb-5">
-        You can achieve profound understanding of Korean with Elgand.
+// Hero Section
+const HeroSection = () => (
+  <section
+    className={`flex flex-col lg:flex-row items-center justify-between px-6 lg:px-24 py-16 lg:py-24 bg-gradient-to-r from-green-100 to-green-300 text-center lg:text-left ${styles.heroSection}`}
+  >
+    {/* Welcome Text */}
+    <div className="max-w-lg space-y-5">
+      <h1 className="text-5xl font-extrabold text-green-800 leading-tight">
+        Master Korean <br /> From Scratch
+      </h1>
+      <p className="text-lg text-green-900/80">
+        Join over 100,000 learners and explore lessons from basic Hangeul to
+        advanced grammar, organized by levels and updated weekly.
       </p>
-      <Button styled="font-semibold bg-shade1 mt-6" path="app">
-        Get started
+      <Button
+        styled="bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-500 transition inline-block"
+        style={{ marginTop: "1.5rem" }}
+      >
+        Get Started Now
         <ArrowIcon />
       </Button>
     </div>
-  );
-}
 
-// Section Two Component
-const SectionTwo = () => (
-  <section className="flex flex-col items-center lg:gap-5 xl:px-0 py-10 xl:py-0 mx-auto max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-5xl items-center mb-10 text-center">
-    <div className="max-w-2xl">
-      <h2 className="text-4xl text-black font-bold">Lessons expanded weekly</h2>
-      <p className="mt-4 text-grey mx-4">
-        You can take over 100 Korean lessons, ranging from{" "}
-        <span className="text-black font-semibold">basic Hangeul</span> to{" "}
-        <span className="text-shade1 font-semibold">advanced grammar</span>,
-        organized by level and expanded weekly.
-      </p>
+    {/* Hero Image */}
+    <div className="mt-10 lg:mt-0 lg:w-1/2">
+      <img
+        src="Illustation.png"
+        alt="Learn Korean illustration"
+        className="w-full rounded-lg shadow-xl"
+      />
     </div>
-    <Illustration
-      src="Book lover-bro 1.png"
-      alt="Book lover illustration"
-      customStyle="lg:w-1/3"
-    />
   </section>
 );
 
-// Illustration Component
-const Illustration = ({ src, alt, customStyle }) => (
-  <div className={`illustrator basis-1/2 ${customStyle}`}>
-    <img src={src} alt={alt} />
+// Features Section
+const FeaturesSection = () => (
+  <section className="py-16 px-6 lg:px-24 bg-white">
+    <h2 className="text-4xl font-bold text-center text-green-800 mb-8">
+      Why Choose Us
+    </h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Feature 1 */}
+      <FeatureCard
+        icon="📘"
+        title="Comprehensive Lessons"
+        description="From beginner Hangeul to advanced grammar, lessons tailored to every level."
+      />
+      {/* Feature 2 */}
+      <FeatureCard
+        icon="🕒"
+        title="Weekly Updates"
+        description="New lessons and quizzes added every week to keep you engaged."
+      />
+      {/* Feature 3 */}
+      <FeatureCard
+        icon="🎓"
+        title="Expert Guidance"
+        description="Learn with lessons crafted by experienced language instructors."
+      />
+    </div>
+  </section>
+);
+
+// Feature Card Component
+const FeatureCard = ({ icon, title, description }) => (
+  <div className="flex flex-col items-center bg-green-50 p-6 rounded-lg shadow-lg">
+    <div className="text-5xl mb-4">{icon}</div>
+    <h3 className="text-xl font-semibold text-green-800">{title}</h3>
+    <p className="text-green-700 text-center mt-2">{description}</p>
   </div>
 );
 
-// Button Component
-
-// Arrow Icon Component
+// Arrow Icon
 const ArrowIcon = () => (
   <svg
-    className="inline-block"
+    className="inline-block ml-2"
     width="15"
     height="15"
     viewBox="0 0 15 15"
@@ -94,7 +118,7 @@ const ArrowIcon = () => (
   >
     <path
       d="M3.125 7.5H11.875M11.875 7.5L7.5 3.125M11.875 7.5L7.5 11.875"
-      stroke="#F1F1F1"
+      stroke="white"
       strokeLinecap="round"
       strokeLinejoin="round"
     />

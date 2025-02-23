@@ -1,6 +1,6 @@
-function Logo({ width }) {
+function Logo({ width, text = true, admin = false }) {
   return (
-    <div className="logo flex space-x-2 items-center">
+    <div className="logo flex items-center justify-center">
       <div className="icon">
         <svg
           width={width}
@@ -18,7 +18,13 @@ function Logo({ width }) {
           />
         </svg>
       </div>
-      <span className="text-xl text-black font-bold inline-block">Elgand</span>
+      {text ? (
+        <span className="text-xl text-black font-bold inline-block">
+          {!admin ? "Elgand" : "Admin Page"}
+        </span>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

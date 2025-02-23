@@ -9,12 +9,23 @@ const signToken = (id) => {
     expiresIn: process.env.JWT_EXPIRES_IN,
   }));
 };
+
+const iparseCookieMySelf = (cookieHeaders) => {
+  const cookiesString = cookieHeaders.trim().split('; ');
+  let cookie = undefined;
+  cookiesString.forEach((el) =>
+    el.match(/\b(jwt=)/g) ? (cookie = el.split('=')[1]) : el,
+  );
+  return cookie;
+};
+
 const sentTokenCookie = (user, statusCode, res) => {
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     ),
-    httpOnly: true, // jwt cannot be modified
+    httpOnly: true,
+    sameSite: 'lax', // jwt cannot be modified
   };
   if (process.env.NODE_ENV === 'production') cookiesOptions.secure = true; // can only access http
 
@@ -45,6 +56,18 @@ exports.signup = async (req, res, next) => {
   sentTokenCookie(user, 201, res);
 };
 
+exports.logout = (req, res) => {
+  res.cookie('jwt', '', {
+    expires: new Date(Date.now()), // Cookie hết hạn ngay lập tức
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Logged out successfully!',
+  });
+};
+
 exports.login = catchHandle(async (req, res, next) => {
   // 1/ get the email, password from body
   let { email, password } = req.body;
@@ -65,12 +88,21 @@ exports.login = catchHandle(async (req, res, next) => {
 });
 
 exports.protectRoute = catchHandle(async (req, res, next) => {
-  ///// 1// Get token from the header
   //// 1,1 check if it has the Bearer authen
-  if (!req.headers.authorization) {
+  // const cookie = iparseCookieMySelf(req.headers.cookie);
+  const cookie = req.cookies.jwt;
+  let token;
+  if (cookie) {
+    token = cookie;
+  } else if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+  if (!token) {
     return next(new AppError('You are not logging in! Try again', 400));
   }
-  const token = req.headers.authorization.split(' ')[1];
 
   const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET_KEY);
 

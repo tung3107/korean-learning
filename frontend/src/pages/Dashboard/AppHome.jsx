@@ -6,6 +6,7 @@ import AppHeader from "../../ui/AppHeader";
 const SideBarLayOut = styled.div`
   display: flex;
   flex-direction: row;
+  min-height: 100vh;
 `;
 
 function AppHome() {

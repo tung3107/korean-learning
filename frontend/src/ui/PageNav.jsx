@@ -31,7 +31,9 @@ function PageNav() {
         <Button styled="bg-L_Grey" path="login">
           Login
         </Button>
-        <Button styled="bg-shade1">Register</Button>
+        <Button styled="bg-shade1" path="register">
+          Register
+        </Button>
       </div>
     </div>
   );

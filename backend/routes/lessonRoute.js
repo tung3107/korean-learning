@@ -8,7 +8,7 @@ const {
 } = require('../controller/lessonController');
 const { protectRoute, restrictTo } = require('../controller/authController');
 
-const route = express.Router();
+const route = express.Router({ mergeParams: true });
 
 route
   .route('/')

@@ -7,6 +7,10 @@ function Input({
   disable,
   placeholder,
   className,
+  onFocus,
+  onBlur,
+  onInput,
+  onClick,
 }) {
   return (
     <input
@@ -18,6 +22,10 @@ function Input({
       value={value}
       onChange={onChange}
       disabled={disable}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      onInput={onInput}
+      onClick={onClick}
     />
   );
 }

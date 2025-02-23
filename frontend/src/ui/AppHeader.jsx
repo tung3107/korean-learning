@@ -1,94 +1,134 @@
 import { useEffect, useRef, useState } from "react";
+import {
+  HiBell,
+  HiOutlineBell,
+  HiOutlineUser,
+  HiPlus,
+  HiPlusSmall,
+  HiUser,
+} from "react-icons/hi2";
+
 import Button from "../components/Button";
+
 import Img from "../components/Img";
 import Search from "../components/Search";
 import Header from "./Header";
 import Input from "./Input";
+import { useLogout } from "../hook/useLogout";
+import { Navigate } from "react-router";
+import { NavLink } from "react-router-dom";
+import SearchResult from "./SearchResult";
+import useSearch from "../hook/useSearch";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { SearchProvider } from "../hook/SearchContext";
+import Menu from "./Menu";
+import styled from "styled-components";
+import { IconButton } from "@chakra-ui/react";
+import { LuMoon, LuSun } from "react-icons/lu";
+import { useColorMode } from "../components/ui/color-mode";
+
+const AppHeaderLayout = styled.div`
+  z-index: 20;
+  & svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    color: var(--dgrey);
+    transition: all 0.3s;
+  }
+  header {
+    width: 92%;
+    background-color: rgb(244, 244, 244);
+  }
+  svg:hover {
+    color: var(--shade4);
+  }
+  @media (max-width: 728px) {
+    header {
+      width: 100%;
+    }
+  }
+  @media (min-width: 1280px) {
+    header {
+      width: 94%;
+    }
+  }
+`;
 
 function AppHeader() {
   const [menuOpened, setMenuOpened] = useState(false);
+  const [searchOpened, setSearchOpened] = useState(false);
   const menuRef = useRef(null);
-  function handleMenu() {
+  const { logout, isLoading } = useLogout();
+  const { toggleColorMode, colorMode } = useColorMode();
+  const queryClient = useQueryClient();
+
+  const user = queryClient.getQueryData(["user"]);
+
+  function handleOpen() {
+    if (searchOpened) setSearchOpened(false);
     setMenuOpened((menuOpened) => !menuOpened);
+  }
+  function handleSearch() {
+    if (menuOpened) setMenuOpened(false);
+    setSearchOpened((searchOpened) => !searchOpened);
   }
 
   /// useRef to manipulate dom
   useEffect(() => {
-    const menuButton = document.getElementsByClassName("menu")[0];
-    const menuImage = document.getElementsByClassName("menu")[1];
-
-    const handleClickOutSide = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    function handleClickOutside(event) {
+      const menu = document.getElementsByClassName("menuButton")[0];
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !menu.contains(event.target)
+      ) {
         setMenuOpened(false);
-      } else if (event.target === menuButton || event.target === menuImage) {
-        handleMenu();
+        setSearchOpened(false);
       }
-    };
-    document.addEventListener("mousedown", handleClickOutSide);
-    return () => document.removeEventListener("mousedown", handleClickOutSide);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   return (
-    <Header styles="border-b-2 border-gray-200 justify-center w-[90%] items-center">
-      <Search>
-        <Img
-          src="../../src/assets/Search.svg"
-          styled={{
-            width: "20px",
+    <AppHeaderLayout>
+      <Header styles="border-b-2 border-gray-200 justify-center sm:w-full w-[92%] items-center">
+        {/* <SmallButton styled="flex flex-row bg-shade2 font-semibold	 rounded-xl items-center">
+          Create post <HiPlusSmall color="white" />
+        </SmallButton> */}
+        {/* <IconButton onClick={toggleColorMode} variant="outline" size="sm">
+          {colorMode === "light" ? <LuSun /> : <LuMoon />}
+        </IconButton> */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
           }}
-        />
-        <Input
-          type="text"
-          id="search"
-          placeholder="Search courses, exercises,..."
-          className="w-full h-full focus:outline-none"
-        />
-      </Search>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <Button styled="flex flex-col items-center hover:bg-tint5 focus:bg-tint5">
-          <Img
-            src="../../src/assets/notifications.svg"
-            styled={{
-              width: "35px",
-            }}
-          />
-        </Button>
-        <Button styled="flex flex-col items-center hover:bg-tint5 focus:bg-tint5 menu">
-          <Img
-            src="../../src/assets/User.svg"
-            className="menu"
-            styled={{
-              width: "35px",
-            }}
-          />
-        </Button>
-        {menuOpened && (
-          <div
-            ref={menuRef}
-            className="absolute right-4 top-[3rem] mt-2 w-48 bg-white shadow-[4px_-4px_20px_2px_rgb(0,0,0,0.25)] rounded-xl"
-            style={{
-              animation: "fadeInUp 0.25s ease-out",
-            }}
+        >
+          <Button styled="flex flex-col items-center hover:bg-tint5 focus:bg-tint5">
+            <HiBell />
+          </Button>
+          <Button
+            styled="flex flex-col items-center hover:bg-tint5 focus:bg-tint5 menuButton"
+            onClick={handleOpen}
           >
-            <ul className="flex flex-col">
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Profile
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Settings
-              </li>
-              <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                Logout
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-    </Header>
+            <HiUser />
+          </Button>
+          {menuOpened && <Menu menuRef={menuRef} logout={logout} />}
+        </div>
+        <div>
+          <SearchProvider>
+            <Search handleSearch={handleSearch} />
+            {searchOpened && (
+              <SearchResult menuRef={menuRef} handleSearch={handleSearch} />
+            )}
+          </SearchProvider>
+        </div>
+        <span className=" text-md font-medium text-gray-600">
+          Welcome, {user.name}
+        </span>
+      </Header>
+    </AppHeaderLayout>
   );
 }
 

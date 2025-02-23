@@ -43,7 +43,6 @@ const userSchema = new mongoose.Schema({
     default: Date.now(),
   },
   passwordChangedAt: Date,
-  courses: [{ type: mongoose.Schema.ObjectId, ref: 'Course' }],
 });
 
 // userSchema.virtual('courses', {

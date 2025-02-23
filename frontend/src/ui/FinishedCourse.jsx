@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import CardList from "./CardList";
-const FinishedCourseLayout = styled.div`
-  padding: 40px 10px 74px 56px;
-`;
+import { HomeCourseLayout } from "./HomeCourse";
+const FinishedCourseLayout = HomeCourseLayout;
 function FinishedCourse() {
   return (
     <FinishedCourseLayout>

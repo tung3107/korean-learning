@@ -1,21 +1,37 @@
 const mongoose = require('mongoose');
 
 const userProgressSchema = new mongoose.Schema({
-  completedPercent: {
-    type: Number,
-    default: 0,
-  },
   completed_at: {
     type: Date,
   },
-  user: { type: mongooes.Schema.ObjectId, ref: 'User', required: true },
+  percentage: {
+    type: Number,
+  },
+  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   course: {
-    type: mongooes.Schema.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: 'Course',
     required: true,
   },
+  finsisedLessons: [
+    {
+      type: String,
+    },
+  ],
 });
 
-const UserProgress = mongoose.model('UserProgress', courseSchema);
+// userProgressSchema.pre('findOneAndUpdate', function (next) {
+//   const query = this.getUpdate();
+//   if (this.finsisedLessons) {
+//     const finishedLessons = this.finsisedLessons.length || 0;
+//     const percentage = !this.finsisedLessons
+//       ? 0
+//       : (this.finsisedLessons.length / this.percentage) * 10;
+//     this.setUpdate({ ...query, percentage });
+//   }
+//   next();
+// });
+
+const UserProgress = mongoose.model('UserProgress', userProgressSchema);
 
 module.exports = UserProgress;
