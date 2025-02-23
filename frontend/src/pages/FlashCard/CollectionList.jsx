@@ -6,8 +6,8 @@ import { DashboardLayout } from "../Dashboard/Dashboard";
 import { HomeCourseLayout } from "../../ui/HomeCourse";
 import { useQuery } from "@tanstack/react-query";
 import axiosClient from "../../services/axiosClient";
-import { Spinner } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
+import Spinner from "../../components/Spinner";
 
 const CollectionListLayout = DashboardLayout;
 const CollectionContentLayout = HomeCourseLayout;

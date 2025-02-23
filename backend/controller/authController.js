@@ -90,8 +90,8 @@ exports.protectRoute = catchHandle(async (req, res, next) => {
   //// 1,1 check if it has the Bearer authen
   // const cookie = iparseCookieMySelf(req.headers.cookie);
   let token;
+  const cookie = req.cookies.jwt;
   if (cookie && process.env.NODE_ENV === 'development') {
-    const cookie = req.cookies.jwt;
     token = cookie;
   }
   if (
