@@ -26,7 +26,7 @@ const sentTokenCookie = (user, statusCode, res) => {
     ),
     httpOnly: true, // jwt cannot be modified
   };
-  if (process.env.NODE_ENV === 'production') cookiesOptions.secure = true; // can only access http
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true; // can only access http
 
   const token = signToken(user._id);
   res.cookie('jwt', token, cookieOptions);
