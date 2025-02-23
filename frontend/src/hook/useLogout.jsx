@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import axiosClient from "../services/axiosClient";
 import toast from "react-hot-toast";
+import Cookies from "js-cookie";
 
 export function useLogout() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export function useLogout() {
     onSuccess: () => {
       queryClient.removeQueries();
       toast.success("Logging out");
+      Cookies.remove("jwt");
       navigate("/", { replace: true });
     },
   });

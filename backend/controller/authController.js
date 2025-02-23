@@ -91,11 +91,13 @@ exports.protectRoute = catchHandle(async (req, res, next) => {
   // const cookie = iparseCookieMySelf(req.headers.cookie);
   const cookie = req.cookies.jwt;
   let token;
-  if (cookie) {
+  if (cookie && process.env.NODE_ENV === 'development') {
     token = cookie;
-  } else if (
+  }
+  if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization.startsWith('Bearer') &&
+    process.env.NODE_ENV === 'production'
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
