@@ -21,7 +21,7 @@ export default function useLogin() {
         duration: 1000,
       });
 
-      document.cookie = `jwt=${token}; path=/; max-age=3600; secure`;
+      document.cookie = `jwt=${token}; path=/; max-age=3600; secure; samesite=None`;
 
       if (user.role === "user") {
         navigate("/app/home", { replace: true });

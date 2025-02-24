@@ -11,10 +11,12 @@ function Input({
   onBlur,
   onInput,
   onClick,
+  name,
 }) {
   return (
     <input
       type={type}
+      name={name}
       className={className}
       placeholder={placeholder}
       id={id}

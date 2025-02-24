@@ -51,9 +51,12 @@ const CourseLearnLayout = styled(MarkDown)`
   p {
     margin: 16px 0 16px 0;
   }
+  code {
+    white-space: pre-wrap;
+  }
 
   @media (max-width: 728px) {
-    width: 100%;
+    margin: 20px;
   }
   @media (min-width: 729px) and (max-width: 1028px) {
     width: 50%;
@@ -100,6 +103,16 @@ const FooterLayout = styled.footer`
     gap: 10px;
     svg {
       color: black;
+    }
+  }
+  @media (max-width: 728px) {
+    .lesson {
+      display: none;
+    }
+  }
+  @media (min-width: 729px) and (max-width: 1028px) {
+    .lesson {
+      display: none;
     }
   }
 `;
@@ -202,6 +215,10 @@ function CourseLearn({ isExcercise = false }) {
     fetchCourseContent();
   }, [params, isExcercise]);
 
+  function handleOpen() {
+    const element = document.getElementsByClassName("lesson_aprrix")[0];
+    element.style.display = "block";
+  }
   return (
     <>
       <CourseLearnLayout>{content}</CourseLearnLayout>
@@ -224,8 +241,8 @@ function CourseLearn({ isExcercise = false }) {
           >
             Finish <HiCheckCircle />
           </SmallButton>
-          <SmallButton styled="lesson_name text-grey">
-            <p>{name}</p>
+          <SmallButton styled="lesson_name text-grey" onClick={handleOpen}>
+            <p className="lesson">{name}</p>
             <HiArrowRight size={20} />
           </SmallButton>
         </div>

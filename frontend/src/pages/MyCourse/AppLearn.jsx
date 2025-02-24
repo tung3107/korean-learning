@@ -74,6 +74,11 @@ function AppLearn() {
     return <Spinner />;
   }
   const { name, lessons } = course;
+
+  function handleClose() {
+    const element = document.getElementsByClassName("lesson_aprrix")[0];
+    element.style.display = "none";
+  }
   return (
     <AppLearnLayout>
       <Header>
@@ -86,10 +91,10 @@ function AppLearn() {
           <ProgressChart course={course} userprogress={userprogress} />
         </div>
       </Header>
-      <CourseLessonListLayout>
+      <CourseLessonListLayout className="lesson_aprrix">
         <div className="title_content flex flex-row items-center gap-2 space-between justify-between">
           <h1>Course content</h1>
-          <HiXMark size={20} />
+          <HiXMark size={20} onClick={handleClose} />
         </div>
         <ul>
           {lessons.map((lesson) => {

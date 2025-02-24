@@ -71,15 +71,53 @@ const StyledButton = styled.button`
   }
 `;
 function SignUpForm() {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    passwordConfirm: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
   const { signup, isLoading } = useSignUp();
+
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   function handleLogin(e) {
     e.preventDefault();
-    signup({ email, password, name, passwordConfirm });
+    let newErrors = {};
+    const requiredFields = ["name", "email", "passwordConfirm", "password"];
+
+    // Kiểm tra các field bắt buộc
+    requiredFields.forEach((field) => {
+      if (!formData[field]?.trim()) {
+        newErrors[field] = "This field is required";
+      }
+    });
+    // Kiểm tra email hợp lệ
+    if (formData.email && !formData.email.includes("@")) {
+      newErrors.email = "Invalid email format.";
+    }
+
+    // Kiểm tra mật khẩu hợp lệ
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(formData.password)) {
+      newErrors.password =
+        "Password must have at least one letter, one number, and be 8+ characters.";
+    }
+
+    if (formData.password !== formData.passwordConfirm) {
+      newErrors.passwordConfirm = "Passwords do not match.";
+    }
+
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      signup(formData);
+    }
   }
   return (
     <Form name="signUpForm" onSubmit={(e) => handleLogin(e)}>
@@ -89,24 +127,32 @@ function SignUpForm() {
         <Input
           type="text"
           id="name"
+          name="name"
           placeholder="Name"
           autoComplete="name"
           required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.name}
+          onChange={handleChange}
         />
+        {errors.name && (
+          <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+        )}
       </InputGroup>
       <InputGroup>
         <Img src="/mail.svg" alt="Email Icon" />
         <Input
           type="email"
           id="email"
+          name="email"
           placeholder="Email"
           autoComplete="username"
           required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
         />
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+        )}
       </InputGroup>
 
       {/* Password Input */}
@@ -115,24 +161,32 @@ function SignUpForm() {
         <Input
           type="password"
           id="password"
+          name="password"
           placeholder="Password"
           autoComplete="current-password"
-          value={password}
           required
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
         />
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+        )}
       </InputGroup>
       <InputGroup>
         <Img src="/Lock.svg" alt="Password Confirm" />
         <Input
           type="password"
-          id="passwordConf"
+          id="passwordConfirm"
+          name="passwordConfirm"
           placeholder="Password confirm"
           autoComplete="current-password"
-          value={passwordConfirm}
           required
-          onChange={(e) => setPasswordConfirm(e.target.value)}
+          value={formData.passwordConfirm}
+          onChange={handleChange}
         />
+        {errors.passwordConfirm && (
+          <p className="text-red-500 text-sm mt-1">{errors.passwordConfirm}</p>
+        )}
       </InputGroup>
       {/* Submit Button */}
       <StyledButton type="submit">Sign Up</StyledButton>

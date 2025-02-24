@@ -18,7 +18,7 @@ export function useSignUp() {
       queryClient.setQueryData(["user"], user);
       toast.success("Sign up successfully");
 
-      document.cookie = `jwt=${token}; path=/; max-age=3600; secure`;
+      document.cookie = `jwt=${token}; path=/; max-age=3600; secure; samesite=None`;
 
       if (user.role === "user") {
         navigate("/app/home", { replace: true });
@@ -27,7 +27,7 @@ export function useSignUp() {
       }
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error("Please provide a valid, unique email or correct password");
     },
   });
   return { signup, isLoading };

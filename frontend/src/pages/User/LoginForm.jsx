@@ -70,8 +70,8 @@ const StyledButton = styled.button`
   }
 `;
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("tungtung@example.com");
+  const [password, setPassword] = useState("tung123123");
   const { login, isLoading } = useLogin();
 
   function handleLogin(e) {
