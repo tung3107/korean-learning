@@ -89,6 +89,7 @@ function LoginForm() {
           placeholder="Email"
           autoComplete="username"
           required
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </InputGroup>
@@ -102,6 +103,7 @@ function LoginForm() {
           placeholder="Password"
           autoComplete="current-password"
           required
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </InputGroup>
